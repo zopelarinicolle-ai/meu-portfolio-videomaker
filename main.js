@@ -25,75 +25,62 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white font-sans selection:bg-[#595ce9]">
+    <div className="min-h-screen bg-neutral-950 text-white font-sans">
       <header className="relative py-24 px-6 text-center">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_#595ce933_0%,_transparent_70%)] -z-10"></div>
         <div className="max-w-5xl mx-auto">
-          <div className="inline-block px-4 py-1.5 mb-6 border border-[#595ce9]/30 rounded-full bg-[#595ce9]/10 text-[#595ce9] text-sm">Disponível para novos projetos</div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent">Edição de Vídeo Profissional</h1>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto mb-10">Transformo suas ideias em conteúdo dinâmico e visualmente impactante.</p>
+          <div className="inline-block px-4 py-1.5 mb-6 border border-[#595ce9]/30 rounded-full bg-[#595ce9]/10 text-[#595ce9] text-sm">Disponível para projetos</div>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-b from-white to-neutral-500 bg-clip-text text-transparent">Edição Profissional</h1>
+          <p className="text-neutral-400 text-lg max-w-2xl mx-auto mb-10 text-center">Transformo ideias em conteúdo visual impactante.</p>
           <div className="flex justify-center gap-4">
-            <a href="#portfolio" className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-neutral-200 transition-all">Ver Portfólio</a>
-            <a href="#precos" className="bg-neutral-900 border border-neutral-800 px-8 py-3 rounded-full font-bold hover:bg-neutral-800 transition-all">Ver Planos</a>
+            <a href="#portfolio" className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-neutral-200 transition-all">Portfólio</a>
+            <a href="#precos" className="bg-neutral-900 border border-neutral-800 px-8 py-3 rounded-full font-bold hover:bg-neutral-800 transition-all">Preços</a>
           </div>
         </div>
       </header>
 
       <section id="portfolio" className="py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">Trabalhos Recentes</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {portfolioVideos.map((video) => (
-            <div key={video.id} className="group relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-[#595ce9]/50 transition-all cursor-pointer" onClick={() => setActiveVideo(video.embedUrl)}>
+            <div key={video.id} className="group relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-[#595ce9]/50 transition-all" onClick={() => setActiveVideo(video.embedUrl)}>
               <div className="aspect-[9/16] relative overflow-hidden">
-                <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-70 group-hover:opacity-100" />
+                <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-70" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30"><Play size={20} fill="white" /></div>
+                    <Play size={40} fill="white" className="text-white" />
                 </div>
               </div>
-              <div className="p-4"><span className="text-[#595ce9] text-[10px] font-bold uppercase tracking-widest">{video.category}</span><h3 className="font-bold">{video.title}</h3></div>
+              <div className="p-4"><h3 className="font-bold">{video.title}</h3></div>
             </div>
           ))}
         </div>
       </section>
 
       {activeVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm" onClick={() => setActiveVideo(null)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90" onClick={() => setActiveVideo(null)}>
           <div className="relative w-full max-w-4xl aspect-video bg-black rounded-3xl overflow-hidden border border-neutral-800">
-            <iframe src={activeVideo} className="w-full h-full" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+            <iframe src={activeVideo} className="w-full h-full" allowFullScreen></iframe>
           </div>
         </div>
       )}
 
       <section id="precos" className="py-20 px-6 bg-neutral-900/30">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-16">Tabela de Preços</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {pricingPlans.map((plan, index) => (
-              <div key={index} className={`relative p-8 rounded-3xl border transition-all ${plan.highlight ? 'bg-[#595ce9] border-[#595ce9] scale-105 z-10' : 'bg-neutral-900 border-neutral-800'}`}>
+              <div key={index} className={`p-8 rounded-3xl border ${plan.highlight ? 'bg-[#595ce9] border-[#595ce9] scale-105' : 'bg-neutral-900 border-neutral-800'}`}>
                 <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold">R${plan.price}</span><span className="text-sm opacity-70">/{plan.period}</span>
-                </div>
-                <ul className="space-y-4 mb-8">
+                <div className="text-4xl font-extrabold mb-6">R${plan.price}</div>
+                <ul className="space-y-4 mb-8 text-left">
                   {plan.features.map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm opacity-90"><Check size={14} />{f}</li>
+                    <li key={i} className="flex items-center gap-3 text-sm"><Check size={14} />{f}</li>
                   ))}
                 </ul>
-                <button onClick={() => handleContact(plan.name)} className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 ${plan.highlight ? 'bg-white text-[#595ce9]' : 'bg-neutral-800 text-white'}`}><MessageCircle size={18} /> Contratar</button>
+                <button onClick={() => handleContact(plan.name)} className={`w-full py-3 rounded-xl font-bold ${plan.highlight ? 'bg-white text-[#595ce9]' : 'bg-neutral-800 text-white'}`}>Contratar</button>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      <footer className="py-12 px-6 border-t border-neutral-900 text-center text-neutral-500 text-sm">
-        <div className="flex justify-center gap-6 mb-4">
-            <Instagram size={20} className="hover:text-white cursor-pointer" />
-            <Youtube size={20} className="hover:text-white cursor-pointer" />
-            <ExternalLink size={20} className="hover:text-white cursor-pointer" />
-        </div>
-        © 2024 Video Portfolio Profissional.
-      </footer>
     </div>
   );
 };
