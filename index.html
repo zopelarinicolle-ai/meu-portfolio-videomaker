@@ -1,95 +1,111 @@
 <!DOCTYPE html>
 <html lang="pt-pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio Profissional de Vídeo</title>
-    
-    <!-- Bibliotecas principais -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
-        html { scroll-behavior: smooth; }
-        body { margin: 0; background-color: #0a0a0a; color: white; font-family: sans-serif; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio de Vídeo</title>
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { margin: 0; background: #0a0a0a; color: white; }
+  </style>
 </head>
 <body>
-    <div id="root"></div>
+  <div id="root"></div>
 
-    <!-- ✅ AQUI ESTÁ O AJUSTE -->
-    <script type="text/babel" data-presets="react">
-        const { useState } = React;
+  <!-- ✅ AJUSTE PRINCIPAL -->
+  <script type="text/babel" data-presets="react">
+    const { useState } = React;
 
-        const App = () => {
-            const [activeVideo, setActiveVideo] = useState(null);
+    const PlayIcon = () => (
+      <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    );
 
-            const portfolioVideos = [
-                { id: 1, title: "Comercial de Moda", category: "Publicidade", thumbnail: "https://images.unsplash.com/photo-1492691523567-30730029d034?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-                { id: 2, title: "Evento Corporativo", category: "Institucional", thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-                { id: 3, title: "Documentário Curto", category: "Narrativo", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
-                { id: 4, title: "Reels / TikTok", category: "Social Media", thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
-            ];
+    const CheckIcon = () => (
+      <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    );
 
-            const pricingPlans = [
-                { name: "Avulso", price: "49,90", period: "por vídeo", features: ["Edição profissional", "Corte e Cor", "Até 1 minuto", "1 Revisão"], highlight: false },
-                { name: "Combo Duplo", price: "94,90", period: "total", features: ["Melhor Custo-Benefício", "Legendas incluídas", "Cortes Dinâmicos", "2 Revisões"], highlight: true },
-                { name: "Plano Mensal", price: "189,90", period: "por mês", features: ["Assessoria de conteúdo", "Prioridade na fila", "Formatos variados", "Revisões Ilimitadas"], highlight: false }
-            ];
+    const App = () => {
+      const [activeVideo, setActiveVideo] = useState(null);
 
-            const handleContact = (planName) => {
-                const meuNumero = "5500000000000";
-                const message = encodeURIComponent(`Olá! Vi o seu portfólio e tenho interesse no plano: ${planName}`);
-                window.open(`https://wa.me/${meuNumero}?text=${message}`, "_blank");
-            };
+      const portfolioVideos = [
+        { id: 1, title: "Comercial de Moda", category: "Publicidade", thumbnail: "https://images.unsplash.com/photo-1492691523567-30730029d034?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+        { id: 2, title: "Evento Corporativo", category: "Institucional", thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+        { id: 3, title: "Documentário Curto", category: "Narrativo", thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+        { id: 4, title: "Reels / TikTok", category: "Social Media", thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800", embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" }
+      ];
 
-            return (
-                <div className="min-h-screen bg-neutral-950 text-white">
-                    <header className="py-20 text-center">
-                        <h1 className="text-6xl font-bold mb-4">Edição Profissional</h1>
-                        <p className="text-neutral-400">Transformo ideias em conteúdo visual impactante.</p>
-                    </header>
+      const pricingPlans = [
+        { name: "Avulso", price: "49,90", period: "vídeo", features: ["Edição profissional", "Corte e Cor", "Até 1 minuto", "1 Revisão"], highlight: false },
+        { name: "Combo Duplo", price: "94,90", period: "total", features: ["Legendas inclusas", "Cortes Dinâmicos", "2 Revisões"], highlight: true },
+        { name: "Plano Mensal", price: "189,90", period: "mês", features: ["Assessoria", "Prioridade", "Revisões Ilimitadas"], highlight: false }
+      ];
 
-                    <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 px-6">
-                        {portfolioVideos.map(video => (
-                            <div key={video.id} onClick={() => setActiveVideo(video.embedUrl)} className="cursor-pointer">
-                                <img src={video.thumbnail} className="rounded-xl opacity-80 hover:opacity-100" />
-                                <h3 className="mt-2 font-bold">{video.title}</h3>
-                            </div>
-                        ))}
-                    </section>
+      const handleContact = (plan) => {
+        const msg = encodeURIComponent(`Olá! Tenho interesse no plano ${plan}`);
+        window.open(`https://wa.me/5500000000000?text=${msg}`, "_blank");
+      };
 
-                    {activeVideo && (
-                        <div className="fixed inset-0 bg-black/90 flex items-center justify-center" onClick={() => setActiveVideo(null)}>
-                            <iframe src={activeVideo} className="w-3/4 h-3/4" allowFullScreen></iframe>
-                        </div>
-                    )}
+      return (
+        <div className="min-h-screen bg-neutral-950 text-white">
+          <header className="py-24 text-center">
+            <h1 className="text-6xl font-bold mb-4">Edição de Vídeo</h1>
+            <p className="text-neutral-400">Conteúdo que conecta e converte.</p>
+          </header>
 
-                    <section className="py-20 text-center">
-                        <h2 className="text-4xl font-bold mb-10">Planos</h2>
-                        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-                            {pricingPlans.map((plan, i) => (
-                                <div key={i} className="bg-neutral-900 p-8 rounded-2xl">
-                                    <h3 className="text-xl font-bold">{plan.name}</h3>
-                                    <p className="text-3xl my-4">R${plan.price}</p>
-                                    <button
-                                        onClick={() => handleContact(plan.name)}
-                                        className="mt-4 bg-white text-black px-6 py-3 rounded-xl font-bold"
-                                    >
-                                        Contratar
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
+          <section className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-7xl mx-auto px-6">
+            {portfolioVideos.map(v => (
+              <div key={v.id} onClick={() => setActiveVideo(v.embedUrl)} className="cursor-pointer">
+                <img src={v.thumbnail} className="rounded-xl opacity-80 hover:opacity-100" />
+                <h3 className="mt-2 font-bold">{v.title}</h3>
+              </div>
+            ))}
+          </section>
+
+          {activeVideo && (
+            <div className="fixed inset-0 bg-black/90 flex items-center justify-center" onClick={() => setActiveVideo(null)}>
+              <iframe src={activeVideo} className="w-3/4 h-3/4" allowFullScreen></iframe>
+            </div>
+          )}
+
+          <section className="py-20 text-center">
+            <h2 className="text-4xl font-bold mb-10">Planos</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+              {pricingPlans.map((p, i) => (
+                <div key={i} className={`p-8 rounded-2xl ${p.highlight ? 'bg-[#595ce9]' : 'bg-neutral-900'}`}>
+                  <h3 className="text-xl font-bold">{p.name}</h3>
+                  <p className="text-3xl my-4">R${p.price}</p>
+                  <ul className="mb-6 space-y-2">
+                    {p.features.map((f, j) => (
+                      <li key={j} className="flex items-center gap-2 text-sm">
+                        <CheckIcon /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => handleContact(p.name)} className="bg-white text-black w-full py-3 rounded-xl font-bold">
+                    Contratar
+                  </button>
                 </div>
-            );
-        };
+              ))}
+            </div>
+          </section>
+        </div>
+      );
+    };
 
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<App />);
-    </script>
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
 </html>
+
